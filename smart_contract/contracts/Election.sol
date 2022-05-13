@@ -51,16 +51,13 @@ contract Election {
             0
         );
     }
-
     event NewVote();
-
     mapping(string => bool) internal voted;
 
     function castVote(string memory _fingerPrint, uint256 _candId) public {
         require(!voted[_fingerPrint]);
         require(isRegistered(_fingerPrint));
         require(_candId > 0 && _candId <= candidatesCount);
-
         candidates[_candId].votes++;
         voted[_fingerPrint] = true;
         registeredVoters[_fingerPrint].hasVoted = true;
